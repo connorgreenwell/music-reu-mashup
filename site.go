@@ -47,3 +47,15 @@ func SitesWithKeyword(siteList []Site, targets ...string) (sites []Site) {
 	}
 	return
 }
+
+func SitesInState(siteList []Site, states ...string) (sites []Site) {
+	for _, site := range siteList {
+		for _, state := range states {
+			if strings.Contains(site.Location.State, state) {
+				sites = append(sites, site)
+				break
+			}
+		}
+	}
+	return
+}

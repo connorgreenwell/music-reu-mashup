@@ -16,33 +16,33 @@ type Row struct {
 }
 
 func ParseSite(row Row) (site Site) {
-	site.SiteName = row.Columns[0]
-	site.SiteUrl = row.Columns[1]
-	site.Department = row.Columns[2]
+	site.SiteName = strings.TrimSpace(row.Columns[0])
+	site.SiteUrl = strings.TrimSpace(row.Columns[1])
+	site.Department = strings.TrimSpace(row.Columns[2])
 
 	loc := Location{
-		City:    row.Columns[3],
-		State:   row.Columns[4],
-		Zipcode: row.Columns[5],
-		Country: row.Columns[6],
+		City:    strings.TrimSpace(row.Columns[3]),
+		State:   strings.TrimSpace(row.Columns[4]),
+		Zipcode: strings.TrimSpace(row.Columns[5]),
+		Country: strings.TrimSpace(row.Columns[6]),
 	}
 	site.Location = loc
 
 	var contacts []Contact
 	if row.Columns[7] != "" {
 		con := Contact{
-			Name:  row.Columns[7],
-			Phone: row.Columns[8],
-			Email: row.Columns[9],
+			Name:  strings.TrimSpace(row.Columns[7]),
+			Phone: strings.TrimSpace(row.Columns[8]),
+			Email: strings.TrimSpace(row.Columns[9]),
 		}
 		contacts = append(contacts, con)
 	}
 
 	if row.Columns[10] != "" {
 		con := Contact{
-			Name:  row.Columns[10],
-			Phone: row.Columns[11],
-			Email: row.Columns[12],
+			Name:  strings.TrimSpace(row.Columns[10]),
+			Phone: strings.TrimSpace(row.Columns[11]),
+			Email: strings.TrimSpace(row.Columns[12]),
 		}
 		contacts = append(contacts, con)
 	}
@@ -54,18 +54,18 @@ func ParseSite(row Row) (site Site) {
 	}
 	site.Keywords = keys
 
-	site.Comments = row.Columns[14]
-	site.Award = row.Columns[15]
+	site.Comments = strings.TrimSpace(row.Columns[14])
+	site.Award = strings.TrimSpace(row.Columns[15])
 
 	var cofunds []string
 	if row.Columns[16] != "" {
-		cofunds = append(cofunds, row.Columns[16])
+		cofunds = append(cofunds, strings.TrimSpace(row.Columns[16]))
 	}
 	if row.Columns[17] != "" {
-		cofunds = append(cofunds, row.Columns[17])
+		cofunds = append(cofunds, strings.TrimSpace(row.Columns[17]))
 	}
 	if row.Columns[18] != "" {
-		cofunds = append(cofunds, row.Columns[18])
+		cofunds = append(cofunds, strings.TrimSpace(row.Columns[18]))
 	}
 	site.Cofunded = cofunds
 
