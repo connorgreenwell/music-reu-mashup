@@ -14,5 +14,5 @@ func main() {
 
 	sites := ParseSites(xml)
 
-	fmt.Println(len(sites))
+	fmt.Println(SitesWithKeyword(sites, "computer vision"))
 }

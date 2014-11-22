@@ -48,7 +48,12 @@ func ParseSite(row Row) (site Site) {
 	}
 	site.Contacts = contacts
 
-	site.Keywords = strings.Split(row.Columns[13], ",")
+	var keys []string
+	for _, key := range strings.Split(row.Columns[13], ",") {
+		keys = append(keys, strings.TrimSpace(key))
+	}
+	site.Keywords = keys
+
 	site.Comments = row.Columns[14]
 	site.Award = row.Columns[15]
 

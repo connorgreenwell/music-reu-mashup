@@ -24,3 +24,14 @@ type Contact struct {
 	Phone string
 	Email string
 }
+
+func SitesWithKeyword(siteList []Site, target string) (sites []Site) {
+	for _, site := range siteList {
+		for _, keyword := range site.Keywords {
+			if keyword == target {
+				sites = append(sites, site)
+			}
+		}
+	}
+	return
+}
