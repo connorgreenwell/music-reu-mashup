@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/xml"
-	"fmt"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -68,13 +67,7 @@ func ParseSite(row Row) (site Site) {
 	return
 }
 
-func main() {
-	xml_file, err := os.Open("nsf.xml")
-	if err != nil {
-		panic(err)
-	}
-	defer xml_file.Close()
-
+func ParseSites(xml_file *os.File) (sites []Site) {
 	xml_data, err := ioutil.ReadAll(xml_file)
 	if err != nil {
 		panic(err)
@@ -86,7 +79,9 @@ func main() {
 		panic(err)
 	}
 
-	for _, row := range table.Rows {
-		fmt.Println(ParseSite(row))
+	for _, row := range table.Rows[1:] {
+		sites = append(sites, ParseSite(row))
 	}
+
+	return
 }
