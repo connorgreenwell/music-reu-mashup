@@ -1,32 +1,33 @@
 package main
 
 import (
+	"fmt"
 	"strings"
 )
 
 type Site struct {
-	SiteName   string
-	SiteUrl    string
-	Department string
-	Location   Location
-	Contacts   []Contact
-	Keywords   []string
-	Comments   string
-	Award      string
-	Cofunded   []string
+	SiteName   string    `json:"site_name"`
+	SiteUrl    string    `json:"site_url"`
+	Department string    `json:"department"`
+	Location   Location  `json:"location"`
+	Contacts   []Contact `json:"contacts"`
+	Keywords   []string  `json:"keywords"`
+	Comments   string    `json:"comments"`
+	Award      string    `json:"award"`
+	Cofunded   []string  `json:"confunded"`
 }
 
 type Location struct {
-	City    string
-	State   string
-	Zipcode string
-	Country string
+	City    string `json:"city"`
+	State   string `json:"state"`
+	Zipcode string `json:"zipcode"`
+	Country string `json:"country"`
 }
 
 type Contact struct {
-	Name  string
-	Phone string
-	Email string
+	Name  string `json:"name"`
+	Phone string `json:"phone"`
+	Email string `json:"email"`
 }
 
 func SitesWithKeyword(siteList []Site, targets ...string) (sites []Site) {
@@ -49,8 +50,10 @@ func SitesWithKeyword(siteList []Site, targets ...string) (sites []Site) {
 }
 
 func SitesInState(siteList []Site, states ...string) (sites []Site) {
+	fmt.Println(states)
 	for _, site := range siteList {
 		for _, state := range states {
+			fmt.Println(state)
 			if strings.Contains(site.Location.State, state) {
 				sites = append(sites, site)
 				break
