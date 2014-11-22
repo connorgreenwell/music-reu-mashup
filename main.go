@@ -22,4 +22,7 @@ func main() {
 
 	cv := SitesWithKeyword(sites, "computer vision")
 	fmt.Println(len(cv))
+
+	combo := SitesWithKeyword(sites, "computer vision", "machine learning", "data mining")
+	fmt.Println(len(combo))
 }

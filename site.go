@@ -29,11 +29,19 @@ type Contact struct {
 	Email string
 }
 
-func SitesWithKeyword(siteList []Site, target string) (sites []Site) {
+func SitesWithKeyword(siteList []Site, targets ...string) (sites []Site) {
 	for _, site := range siteList {
+		found := false
 		for _, keyword := range site.Keywords {
-			if strings.Contains(keyword, target) {
-				sites = append(sites, site)
+			for _, target := range targets {
+				if strings.Contains(keyword, target) {
+					sites = append(sites, site)
+					found = true
+					break
+				}
+			}
+			if found {
+				break
 			}
 		}
 	}
