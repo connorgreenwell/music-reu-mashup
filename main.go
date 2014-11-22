@@ -14,5 +14,12 @@ func main() {
 
 	sites := ParseSites(xml)
 
-	fmt.Println(SitesWithKeyword(sites, "computer vision"))
+	ml := SitesWithKeyword(sites, "machine learning")
+	fmt.Println(len(ml))
+
+	dm := SitesWithKeyword(sites, "data mining")
+	fmt.Println(len(dm))
+
+	cv := SitesWithKeyword(sites, "computer vision")
+	fmt.Println(len(cv))
 }

@@ -1,5 +1,9 @@
 package main
 
+import (
+	"strings"
+)
+
 type Site struct {
 	SiteName   string
 	SiteUrl    string
@@ -28,7 +32,7 @@ type Contact struct {
 func SitesWithKeyword(siteList []Site, target string) (sites []Site) {
 	for _, site := range siteList {
 		for _, keyword := range site.Keywords {
-			if keyword == target {
+			if strings.Contains(keyword, target) {
 				sites = append(sites, site)
 			}
 		}

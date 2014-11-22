@@ -50,7 +50,7 @@ func ParseSite(row Row) (site Site) {
 
 	var keys []string
 	for _, key := range strings.Split(row.Columns[13], ",") {
-		keys = append(keys, strings.TrimSpace(key))
+		keys = append(keys, strings.ToLower(strings.TrimSpace(key)))
 	}
 	site.Keywords = keys
 
