@@ -1,0 +1,98 @@
+<html>
+<head>
+  <style type="text/css">
+html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
+  </style>
+  <script type="text/javascript"
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDgEFKsjiFfIYKROiSJ5iUECUgAnIwV6VY">
+  </script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    var map;
+    var geocoder;
+
+    function initialize() {
+      geocoder = new google.maps.Geocoder();
+
+      var mapOptions = {
+        center: { lat: 37.6, lng: -95.66},
+        zoom: 4
+      };
+      map = new google.maps.Map(document.getElementById('map-canvas'),
+          mapOptions);
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    var markers = [];
+
+    // Add a marker to the map and push to the array.
+    function addMarker(location, title) {
+      var marker = new google.maps.Marker({
+        position: location,
+        map: map,
+        title: title
+      });
+      markers.push(marker);
+    }
+
+    // Sets the map on all markers in the array.
+    function setAllMap(map) {
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+      }
+    }
+
+    function codeAddress(address, title) {
+      geocoder.geocode( { 'address': address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          //map.setCenter(results[0].geometry.location);
+          addMarker(results[0].geometry.location, title);
+          /*var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+          });*/
+        } else {
+          //alert('Geocode was not successful for the following reason: ' + status);
+        }
+      });
+    }
+
+    function queryAndPopulate() {
+      setAllMap(null);
+      markers = [];
+
+      console.log("start");
+      $.ajax({
+        dataType: "json",
+        url: "http://107.170.123.7:8000/query",
+        data: $("form#query :input[value!='']").serialize()
+      }).done(function(data){
+        console.log("done");
+        if (data.sites == null) {
+          console.log("erg");
+          alert('nothing found :( try again');
+          return;
+        }
+        $.each(data.sites, function(i, site){
+          codeAddress(site.location.city + " " + 
+              site.location.state + " " +
+              site.location.zipcode,
+              site.site_name);
+          console.log(site.site_name);
+        });
+      });
+    }
+  </script>
+</head>
+<body>
+  <center>
+    <h1>Music/REU Summer Mashup</h1>
+    <form id="query">
+      Artist: <input type="text" name="artist">
+      Topic: <input type="text" name="keyword">
+      <input onclick="queryAndPopulate()" type="button" value="Submit">
+    </form>
+  </center>
+  <div id="map-canvas"></div>
+</body>
+</html>
