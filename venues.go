@@ -52,9 +52,3 @@ func StatesShowingIn(artist string) (states []string) {
 	}
 	return
 }
-
-func main() {
-	fmt.Println("Stars:", StatesShowingIn("Stars"))
-	fmt.Println("Yo La Tengo:", StatesShowingIn("Yo La Tengo"))
-	fmt.Println("Run The Jewels:", StatesShowingIn("Run The Jewels"))
-}

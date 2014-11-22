@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -50,10 +49,8 @@ func SitesWithKeyword(siteList []Site, targets ...string) (sites []Site) {
 }
 
 func SitesInState(siteList []Site, states ...string) (sites []Site) {
-	fmt.Println(states)
 	for _, site := range siteList {
 		for _, state := range states {
-			fmt.Println(state)
 			if strings.Contains(site.Location.State, state) {
 				sites = append(sites, site)
 				break
