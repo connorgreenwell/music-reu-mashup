@@ -45,14 +45,7 @@ html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
     function codeAddress(address, title) {
       geocoder.geocode( { 'address': address}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-          //map.setCenter(results[0].geometry.location);
           addMarker(results[0].geometry.location, title);
-          /*var marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location
-          });*/
-        } else {
-          //alert('Geocode was not successful for the following reason: ' + status);
         }
       });
     }
@@ -94,5 +87,12 @@ html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
     </form>
   </center>
   <div id="map-canvas"></div>
+  <div>
+    <center>
+      Source: <a href="https://github.com/connorgreenwell/music-reu-mashup">
+        github.com/connorgreenwell/music-reu-mashup
+      </a>
+    </center>
+  </div>
 </body>
 </html>
